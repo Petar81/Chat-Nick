@@ -1,6 +1,6 @@
 {
-    "name": "chat_nick",
-    "short_name": "chat_nick",
+    "name": "chat_nik",
+    "short_name": "chat_nik",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
