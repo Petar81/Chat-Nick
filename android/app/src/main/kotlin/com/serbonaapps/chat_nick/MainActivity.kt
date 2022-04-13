@@ -1,4 +1,4 @@
-package com.example.chat_nick
+package com.serbonaapps.chat_nick
 
 import io.flutter.embedding.android.FlutterActivity
 
