@@ -29,6 +29,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_webrtc: ^0.8.5
+  dart_webrtc: ^1.0.5
+  path_provider: ^2.0.9
+  webrtc_interface: ^1.0.3
 
 
   # The following adds the Cupertino Icons font to your application.
