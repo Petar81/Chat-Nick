@@ -31,6 +31,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _localRenderer = RTCVideoRenderer();
+
+  @override
+  void initState() {
+    super.initState();
+    initRenderers();
+  }
+
+  initRenderers() async {
+    await _localRenderer.initialize();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
