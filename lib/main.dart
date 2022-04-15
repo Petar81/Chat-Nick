@@ -39,6 +39,12 @@ class _MyHomePageState extends State<MyHomePage> {
     initRenderers();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _localRenderer.dispose();
+  }
+
   initRenderers() async {
     await _localRenderer.initialize();
   }
