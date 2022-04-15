@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     initRenderers();
+    _getUserMedia();
   }
 
   @override
@@ -47,6 +48,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   initRenderers() async {
     await _localRenderer.initialize();
+  }
+
+  _getUserMedia() async {
+    final Map<String, dynamic> mediaConstraints = {
+      "audio": false,
+      "video": {'facingMode': 'user'}
+    };
+    MediaStream stream =
+        await navigator.mediaDevices.getUserMedia(mediaConstraints);
+    _localRenderer.srcObject = stream;
   }
 
   @override
