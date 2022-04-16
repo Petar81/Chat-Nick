@@ -69,6 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
     _localRenderer.srcObject = stream;
   }
 
+  Map<String, dynamic> configuration = {
+    "iceServers": [
+      {"url": "stun:stun.l.google.com:19302"},
+    ]
+  };
+
   SizedBox videoRenderers() => SizedBox(
         height: 210,
         child: Row(children: [
