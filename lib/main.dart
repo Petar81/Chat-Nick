@@ -86,6 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
     };
 
     _localStream = await _getUserMedia();
+
+    RTCPeerConnection pc =
+        await createPeerConnection(configuration, offerSdpConstraints);
   }
 
   SizedBox videoRenderers() => SizedBox(
