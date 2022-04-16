@@ -63,26 +63,39 @@ class _MyHomePageState extends State<MyHomePage> {
     _localRenderer.srcObject = stream;
   }
 
+  SizedBox videoRenderers() => SizedBox(
+        height: 210,
+        child: Row(children: [
+          Flexible(
+            child: Container(
+              key: const Key('local'),
+              margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+              decoration: const BoxDecoration(color: Colors.black),
+              child: RTCVideoView(_localRenderer),
+            ),
+          ),
+          Flexible(
+            child: Container(
+              key: const Key('remote'),
+              margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+              decoration: const BoxDecoration(color: Colors.black),
+              child: RTCVideoView(_remoteRenderer),
+            ),
+          ),
+        ]),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: SizedBox(
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: SizedBox(
-                  child: RTCVideoView(_localRenderer),
-                ),
-              )
-            ],
-          ),
-        ));
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Column(
+        children: <Widget>[
+          videoRenderers(),
+        ],
+      ),
+    );
   }
 }
