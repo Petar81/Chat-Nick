@@ -89,6 +89,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
     RTCPeerConnection pc =
         await createPeerConnection(configuration, offerSdpConstraints);
+
+    pc.addStream(_localStream!);
+
+    pc.onIceCandidate = (e) {
+      if (e.candidate != null) {
+        print(json.encode({
+          'candidate': e.candidate,
+          'sdpMid': e.sdpMid,
+          'sdpMlineIndex': e.sdpMLineIndex
+        }));
+      }
+    };
+
+    pc.onIceConnectionState = (e) {
+      print(e);
+    };
+
+    pc.onAddStream = (stream) {
+      print('addStream: ' + stream.id);
+      _remoteRenderer.srcObject = stream;
+    };
+
+    return pc;
   }
 
   SizedBox videoRenderers() => SizedBox(
