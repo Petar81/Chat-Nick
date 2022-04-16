@@ -84,6 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       "optional": [],
     };
+
+    _localStream = await _getUserMedia();
   }
 
   SizedBox videoRenderers() => SizedBox(
