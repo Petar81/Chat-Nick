@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _offer = false;
 
   RTCPeerConnection? _peerConnection;
-  MediaStream? _localStream;
+  late MediaStream? _localStream;
 
   @override
   void initState() {
@@ -67,21 +67,24 @@ class _MyHomePageState extends State<MyHomePage> {
     MediaStream stream =
         await navigator.mediaDevices.getUserMedia(mediaConstraints);
     _localRenderer.srcObject = stream;
+    return stream;
   }
 
-  Map<String, dynamic> configuration = {
-    "iceServers": [
-      {"url": "stun:stun.l.google.com:19302"},
-    ]
-  };
+  _createPeerConnecion() async {
+    Map<String, dynamic> configuration = {
+      "iceServers": [
+        {"url": "stun:stun.l.google.com:19302"},
+      ]
+    };
 
-  final Map<String, dynamic> offerSdpConstraints = {
-    "mandatory": {
-      "OfferToReceiveAudio": true,
-      "OfferToReceiveVideo": true,
-    },
-    "optional": [],
-  };
+    final Map<String, dynamic> offerSdpConstraints = {
+      "mandatory": {
+        "OfferToReceiveAudio": true,
+        "OfferToReceiveVideo": true,
+      },
+      "optional": [],
+    };
+  }
 
   SizedBox videoRenderers() => SizedBox(
         height: 210,
