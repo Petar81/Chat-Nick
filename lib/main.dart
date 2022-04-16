@@ -75,6 +75,14 @@ class _MyHomePageState extends State<MyHomePage> {
     ]
   };
 
+  final Map<String, dynamic> offerSdpConstraints = {
+    "mandatory": {
+      "OfferToReceiveAudio": true,
+      "OfferToReceiveVideo": true,
+    },
+    "optional": [],
+  };
+
   SizedBox videoRenderers() => SizedBox(
         height: 210,
         child: Row(children: [
