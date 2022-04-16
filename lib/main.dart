@@ -32,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _localRenderer = RTCVideoRenderer();
+  final _remoteRenderer = RTCVideoRenderer();
 
   @override
   void initState() {
@@ -44,10 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void dispose() {
     super.dispose();
     _localRenderer.dispose();
+    _remoteRenderer.dispose();
   }
 
   initRenderers() async {
     await _localRenderer.initialize();
+    await _remoteRenderer.initialize();
   }
 
   _getUserMedia() async {
