@@ -127,6 +127,16 @@ class _MyHomePageState extends State<MyHomePage> {
     _peerConnection!.setLocalDescription(description);
   }
 
+  void _createAnswer() async {
+    RTCSessionDescription description =
+        await _peerConnection!.createAnswer({'offerToReceiveVideo': 1});
+
+    var session = parse(description.sdp.toString());
+    print(json.encode(session));
+
+    _peerConnection!.setLocalDescription(description);
+  }
+
   SizedBox videoRenderers() => SizedBox(
         height: 210,
         child: Row(children: [
