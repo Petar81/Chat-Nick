@@ -34,42 +34,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _localRenderer = RTCVideoRenderer();
-  final _remoteRenderer = RTCVideoRenderer();
+  final _localVideoRenderer = RTCVideoRenderer();
+  final _remoteVideoRenderer = RTCVideoRenderer();
   final sdpController = TextEditingController();
+
   bool _offer = false;
 
   RTCPeerConnection? _peerConnection;
-  late MediaStream? _localStream;
+  MediaStream? _localStream;
 
-  @override
-  void initState() {
-    super.initState();
-    initRenderers();
-    _getUserMedia();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _localRenderer.dispose();
-    _remoteRenderer.dispose();
-    sdpController.dispose();
-  }
-
-  initRenderers() async {
-    await _localRenderer.initialize();
-    await _remoteRenderer.initialize();
+  initRenderer() async {
+    await _localVideoRenderer.initialize();
+    await _remoteVideoRenderer.initialize();
   }
 
   _getUserMedia() async {
     final Map<String, dynamic> mediaConstraints = {
-      "audio": true,
-      "video": {'facingMode': 'user'}
+      'audio': true,
+      'video': {
+        'facingMode': 'user',
+      }
     };
+
     MediaStream stream =
         await navigator.mediaDevices.getUserMedia(mediaConstraints);
-    _localRenderer.srcObject = stream;
+
+    _localVideoRenderer.srcObject = stream;
     return stream;
   }
 
@@ -98,9 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
     pc.onIceCandidate = (e) {
       if (e.candidate != null) {
         print(json.encode({
-          'candidate': e.candidate,
-          'sdpMid': e.sdpMid,
-          'sdpMlineIndex': e.sdpMLineIndex
+          'candidate': e.candidate.toString(),
+          'sdpMid': e.sdpMid.toString(),
+          'sdpMlineIndex': e.sdpMLineIndex,
         }));
       }
     };
@@ -111,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     pc.onAddStream = (stream) {
       print('addStream: ' + stream.id);
-      _remoteRenderer.srcObject = stream;
+      _remoteVideoRenderer.srcObject = stream;
     };
 
     return pc;
@@ -139,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _setRemoteDescription() async {
     String jsonString = sdpController.text;
-    dynamic session = await jsonDecode('$jsonString');
+    dynamic session = await jsonDecode(jsonString);
 
     String sdp = write(session, null);
 
@@ -152,11 +142,28 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _addCandidate() async {
     String jsonString = sdpController.text;
-    dynamic session = await jsonDecode('$jsonString');
+    dynamic session = await jsonDecode(jsonString);
     print(session['candidate']);
     dynamic candidate = RTCIceCandidate(
         session['candidate'], session['sdpMid'], session['sdpMlineIndex']);
     await _peerConnection!.addCandidate(candidate);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initRenderer();
+    _createPeerConnecion().then((pc) {
+      _peerConnection = pc;
+    });
+    // _getUserMedia();
+  }
+
+  @override
+  void dispose() async {
+    super.dispose();
+    await _localVideoRenderer.dispose();
+    sdpController.dispose();
   }
 
   SizedBox videoRenderers() => SizedBox(
@@ -167,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
               key: const Key('local'),
               margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
               decoration: const BoxDecoration(color: Colors.black),
-              child: RTCVideoView(_localRenderer),
+              child: RTCVideoView(_localVideoRenderer),
             ),
           ),
           Flexible(
@@ -175,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
               key: const Key('remote'),
               margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
               decoration: const BoxDecoration(color: Colors.black),
-              child: RTCVideoView(_remoteRenderer),
+              child: RTCVideoView(_remoteVideoRenderer),
             ),
           ),
         ]),
@@ -184,14 +191,59 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[
-          videoRenderers(),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Column(
+          children: [
+            videoRenderers(),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: TextField(
+                      controller: sdpController,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 4,
+                      maxLength: TextField.noMaxLength,
+                    ),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _createOffer,
+                      child: const Text("Offer"),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: _createAnswer,
+                      child: const Text("Answer"),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: _setRemoteDescription,
+                      child: const Text("Set Remote Description"),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: _addCandidate,
+                      child: const Text("Set Candidate"),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ],
+        ));
   }
 }
