@@ -168,82 +168,85 @@ class _MyHomePageState extends State<MyHomePage> {
 
   SizedBox videoRenderers() => SizedBox(
         height: 210,
-        child: Row(children: [
-          Flexible(
-            child: Container(
-              key: const Key('local'),
-              margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-              decoration: const BoxDecoration(color: Colors.black),
-              child: RTCVideoView(_localVideoRenderer),
+        child: Row(
+          children: <Widget>[
+            Flexible(
+              child: Container(
+                key: const Key('local'),
+                margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                decoration: const BoxDecoration(color: Colors.black),
+                child: RTCVideoView(_localVideoRenderer),
+              ),
             ),
-          ),
-          Flexible(
-            child: Container(
-              key: const Key('remote'),
-              margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-              decoration: const BoxDecoration(color: Colors.black),
-              child: RTCVideoView(_remoteVideoRenderer),
+            Flexible(
+              child: Container(
+                key: const Key('remote'),
+                margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                decoration: const BoxDecoration(color: Colors.black),
+                child: RTCVideoView(_remoteVideoRenderer),
+              ),
             ),
-          ),
-        ]),
+          ],
+        ),
       );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Column(
-          children: [
-            videoRenderers(),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: TextField(
-                      controller: sdpController,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 4,
-                      maxLength: TextField.noMaxLength,
-                    ),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Column(
+        children: <Widget>[
+          videoRenderers(),
+          Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: TextField(
+                    controller: sdpController,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 4,
+                    maxLength: TextField.noMaxLength,
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: _createOffer,
-                      child: const Text("Offer"),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ElevatedButton(
-                      onPressed: _createAnswer,
-                      child: const Text("Answer"),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ElevatedButton(
-                      onPressed: _setRemoteDescription,
-                      child: const Text("Set Remote Description"),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ElevatedButton(
-                      onPressed: _addCandidate,
-                      child: const Text("Set Candidate"),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ],
-        ));
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                    onPressed: _createOffer,
+                    child: const Text("Offer"),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: _createAnswer,
+                    child: const Text("Answer"),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: _setRemoteDescription,
+                    child: const Text("Set Remote Description"),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: _addCandidate,
+                    child: const Text("Set Candidate"),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
