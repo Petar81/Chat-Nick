@@ -1,4 +1,4 @@
-package com.cloudwebrtc.flutterwebrtcdemo;
+package com.serbonaapps.chat_nik;
 
 import io.flutter.embedding.android.FlutterActivity;
 
