@@ -15,13 +15,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  change_app_package_name:
-    dependency: "direct dev"
-    description:
-      name: change_app_package_name
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   characters:
     dependency: transitive
     description:
@@ -58,7 +51,7 @@ packages:
     source: hosted
     version: "1.0.4"
   dart_webrtc:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: dart_webrtc
       url: "https://pub.dartlang.org"
