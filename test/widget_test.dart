@@ -6,7 +6,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_webrtc_demo/main.dart';
+import 'package:chat_nik/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
