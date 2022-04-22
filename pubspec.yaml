@@ -24,3 +24,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/incoming_call.gif
+    - assets/outgoing_call.gif
