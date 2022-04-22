@@ -131,8 +131,8 @@ class _CallSampleState extends State<CallSample> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("title"),
-          content: Text("accept?"),
+          title: Text("Incoming call"),
+          content: const Image(image: AssetImage('assets/incoming_call.gif')),
           actions: <Widget>[
             TextButton(
               child: Text("reject"),
