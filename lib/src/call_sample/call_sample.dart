@@ -138,8 +138,9 @@ class _CallSampleState extends State<CallSample> {
             Container(
               decoration: BoxDecoration(color: Colors.red),
               padding: EdgeInsets.symmetric(vertical: 4.0),
-              child: TextButton(
-                child: Text(
+              child: TextButton.icon(
+                icon: Icon(Icons.phone_disabled_sharp, color: Colors.white),
+                label: Text(
                   "reject",
                   style: TextStyle(color: Colors.white),
                 ),
@@ -149,8 +150,9 @@ class _CallSampleState extends State<CallSample> {
             Container(
               decoration: BoxDecoration(color: Colors.green),
               padding: EdgeInsets.symmetric(vertical: 4.0),
-              child: TextButton(
-                child: Text(
+              child: TextButton.icon(
+                icon: Icon(Icons.call_rounded, color: Colors.white),
+                label: Text(
                   "accept",
                   style: TextStyle(color: Colors.white),
                 ),
