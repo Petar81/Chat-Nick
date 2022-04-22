@@ -284,6 +284,7 @@ class _CallSampleState extends State<CallSample> {
                     FloatingActionButton(
                       child: const Icon(Icons.switch_camera),
                       onPressed: _switchCamera,
+                      tooltip: 'Switch Camera',
                     ),
                     FloatingActionButton(
                       onPressed: _hangUp,
@@ -294,6 +295,7 @@ class _CallSampleState extends State<CallSample> {
                     FloatingActionButton(
                       child: const Icon(Icons.mic_off),
                       onPressed: _muteMic,
+                      tooltip: 'Mute Mic',
                     )
                   ]))
           : null,
