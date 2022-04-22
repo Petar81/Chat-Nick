@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: Text('Flutter-WebRTC example'),
+            title: Text('Chat Nik'),
           ),
           body: ListView.builder(
               shrinkWrap: true,
