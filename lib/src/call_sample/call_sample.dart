@@ -135,15 +135,29 @@ class _CallSampleState extends State<CallSample> {
           title: Text("Incoming call"),
           content: const Image(image: AssetImage('assets/incoming_call.gif')),
           actions: <Widget>[
-            TextButton(
-              child: Text("reject"),
-              onPressed: () => Navigator.of(context).pop(false),
+            Container(
+              decoration: BoxDecoration(color: Colors.red),
+              padding: EdgeInsets.symmetric(vertical: 4.0),
+              child: TextButton(
+                child: Text(
+                  "reject",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () => Navigator.of(context).pop(false),
+              ),
             ),
-            TextButton(
-              child: Text("accept"),
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
+            Container(
+              decoration: BoxDecoration(color: Colors.green),
+              padding: EdgeInsets.symmetric(vertical: 4.0),
+              child: TextButton(
+                child: Text(
+                  "accept",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
             ),
           ],
         );
