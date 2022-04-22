@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'signaling.dart';
@@ -130,7 +131,7 @@ class _CallSampleState extends State<CallSample> {
     return showDialog<bool?>(
       context: context,
       builder: (context) {
-        return AlertDialog(
+        return CupertinoAlertDialog(
           title: Text("Incoming call"),
           content: const Image(image: AssetImage('assets/incoming_call.gif')),
           actions: <Widget>[
