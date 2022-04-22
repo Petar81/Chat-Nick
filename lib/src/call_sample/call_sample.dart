@@ -171,16 +171,24 @@ class _CallSampleState extends State<CallSample> {
     return showDialog<bool?>(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: Text("title"),
-          content: Text("waiting"),
+        return CupertinoAlertDialog(
+          title: Text("Outgoing call"),
+          content: const Image(image: AssetImage('assets/outgoing_call.gif')),
           actions: <Widget>[
-            TextButton(
-              child: Text("cancel"),
-              onPressed: () {
-                Navigator.of(context).pop(false);
-                _hangUp();
-              },
+            Container(
+              decoration: BoxDecoration(color: Colors.red),
+              padding: EdgeInsets.symmetric(vertical: 4.0),
+              child: TextButton.icon(
+                icon: Icon(Icons.phone_disabled_sharp, color: Colors.white),
+                label: Text(
+                  "cancel",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                  _hangUp();
+                },
+              ),
             ),
           ],
         );
