@@ -134,6 +134,7 @@ class _CallSampleState extends State<CallSample> {
   }
 
   Future<bool?> _showAcceptDialog() {
+    _audioCache.play('black_sheriff.mp3');
     return showDialog<bool?>(
       context: context,
       builder: (context) {
