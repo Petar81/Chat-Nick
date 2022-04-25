@@ -23,8 +23,6 @@ class _CallSampleState extends State<CallSample> {
   bool _inCalling = false;
   Session? _session;
 
-  final ringtone = "black_sheriff.mp3";
-  final audioPlayer = AudioPlayer();
   final AudioCache _audioCache = AudioCache(
     prefix: 'audio/',
     fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.STOP),
@@ -165,7 +163,8 @@ class _CallSampleState extends State<CallSample> {
                   "accept",
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  await _audioCache.fixedPlayer!.stop();
                   Navigator.of(context).pop(true);
                 },
               ),
