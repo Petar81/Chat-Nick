@@ -23,6 +23,7 @@ class _CallSampleState extends State<CallSample> {
   bool _inCalling = false;
   Session? _session;
 
+  final audioPlayer = AudioPlayer();
   final AudioCache _audioCache = AudioCache(
     prefix: 'audio/',
     fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.STOP),
