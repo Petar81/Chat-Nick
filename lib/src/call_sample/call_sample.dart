@@ -146,13 +146,15 @@ class _CallSampleState extends State<CallSample> {
               decoration: BoxDecoration(color: Colors.red),
               padding: EdgeInsets.symmetric(vertical: 4.0),
               child: TextButton.icon(
-                icon: Icon(Icons.phone_disabled_sharp, color: Colors.white),
-                label: Text(
-                  "reject",
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () => Navigator.of(context).pop(false),
-              ),
+                  icon: Icon(Icons.phone_disabled_sharp, color: Colors.white),
+                  label: Text(
+                    "reject",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () async {
+                    await _audioCache.fixedPlayer!.stop();
+                    Navigator.of(context).pop(false);
+                  }),
             ),
             Container(
               decoration: BoxDecoration(color: Colors.green),
